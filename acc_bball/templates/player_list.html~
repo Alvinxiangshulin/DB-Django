@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Players</title>
+</head>
+<body>
+<h1>PLAYER_ID TEAM_ID UNIFORM_NUM FIRST_NAME LAST_NAME MPG PPG RPG APG SPG BPG</h1>
+<ul>
+  {% for player in players %}
+  <li>{{person.player_id}} {{person.team_id}} {{person.uniform_num}} {{person.first_name}} {{person.last_name}} {{person.mpg}} {{person.ppg}} {{person.rpg}} {{person.apg}} {{person.spg}} {{person.bpg}}</li>
+  {% endfor %}
+  </ul>
+</body>
+</html>

@@ -1,0 +1,6 @@
+from django.urls import path
+from acc_bball import views
+
+urlpatterns = [
+    path('createPlayer/', views.create),
+]

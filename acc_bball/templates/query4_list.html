@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>PLAYERS</title>
+</head>
+<body>
+<h1>FIRST_NAME LAST_NAME UNIFORM_NUM</h1>
+<ul>
+  {% for query in query4 %}
+  <li> {{query.first_name}} {{query.last_name}} {{query.uniform_num}}</li>
+  {% endfor %}
+  </ul>
+</body>
