@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Player Form</title>
+  </head>
+  <body>
+    <form method="post">
+      {% csrf_token %}
+      <input type="text" name="use_mpg">
+      <input type="text" name="min_mpg">
+      <input type="text" name="max_mpg">
+      <input type="text" name="use_ppg">
+      <input type="text" name="min_ppg">
+      <input type="text" name="max_ppg">
+      <input type="text" name="use_rpg">
+      <input type="text" name="min_rpg">
+      <input type="text" name="max_rpg">
+      <input type="text" name="use_apg">
+      <input type="text" name="min_apg">
+      <input type="text" name="max_apg">
+      <input type="text" name="use_spg">
+      <input type="text" name="min_spg">
+      <input type="text" name="max_spg">
+      <input type="text" name="use_bpg">
+      <input type="text" name="min_bpg">
+      <input type="text" name="max_bpg">
+      <input type="submit" value="OK">
+    </form>
+  </body>
+</html>

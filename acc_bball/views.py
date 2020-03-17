@@ -1,6 +1,6 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
-
+from .forms import query1_form, query2_form,query3_form,query4_form,query5_form
 from .models import Player, Team, Color, State
 import os
 # Create your views here.
@@ -63,11 +63,42 @@ def addplayer(team_id, uniform_num, first_name, last_name, mpg, ppg, rpg, apg, s
     return 
 
 def query1(request):
-    players = query1_func(0, 35, 40, 1, 1, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
-    context = {
-        "players":  players
-    }
-    return render(request, 'player_list.html', context=context)
+    #players = query1_func(0, 35, 40, 1, 1, 10, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+    if request.method == "POST":
+        form = query1_form(request.POST)
+#        print("post")
+        if form.is_valid():
+ #           print("isvalid")
+            #form = query1_form()    
+            use_mpg = form.cleaned_data['use_mpg']
+            min_mpg = form.cleaned_data['min_mpg']
+            max_mpg = form.cleaned_data['max_mpg']
+            use_ppg = form.cleaned_data['use_ppg']
+            min_ppg = form.cleaned_data['min_ppg']
+            max_ppg = form.cleaned_data['max_ppg']
+            use_rpg = form.cleaned_data['use_rpg']
+            min_rpg = form.cleaned_data['min_rpg']
+            max_rpg = form.cleaned_data['max_rpg']
+            use_apg = form.cleaned_data['use_apg']
+            min_apg = form.cleaned_data['min_apg']
+            max_apg = form.cleaned_data['max_apg']
+            use_spg = form.cleaned_data['use_spg']
+            min_spg = form.cleaned_data['min_spg']
+            max_spg = form.cleaned_data['max_spg']
+            use_bpg = form.cleaned_data['use_bpg']
+            min_bpg = form.cleaned_data['min_bpg']
+            max_bpg = form.cleaned_data['max_bpg']
+            players = query1_func(use_mpg, min_mpg, max_mpg, use_ppg, min_ppg,max_ppg, use_rpg, min_rpg, max_rpg, use_apg, min_apg, max_apg, use_spg, min_spg, max_spg, use_bpg, min_bpg, max_bpg)
+  #          print(players)
+            context = {
+                "players":  players
+            }
+            return render(request,'player_list.html', context=context)
+    else:
+        form = query1_form()
+    
+    return render(request, 'query1_form.html', {'form':query1_form})
+   
 
 def query1_func(use_mpg, min_mpg, max_mpg,use_ppg, min_ppg, max_ppg,use_rpg, min_rpg, max_rpg,use_apg, min_apg,  max_apg,use_spg, min_spg,  max_spg,use_bpg, min_bpg,  max_bpg):
     players = Player.objects.all()
@@ -87,11 +118,20 @@ def query1_func(use_mpg, min_mpg, max_mpg,use_ppg, min_ppg, max_ppg,use_rpg, min
     return players
 
 def query2(request):
-    query2 = query2_func("Red")
-    context = {
-        "query2":  query2
-    }
-    return render(request, 'query2_list.html', context=context)
+    #query2 = query2_func("Red")
+    if request.method == "POST":
+        form = query2_form(request.POST)
+        if form.is_valid():            
+            team_color = form.cleaned_data['team_color']
+            query2 = query2_func(team_color)
+            context = {
+                "query2":  query2
+            }
+            return render(request,'query2_list.html', context=context)
+        else:
+            form = query2_form()
+    
+    return render(request, 'query2_form.html', {'form':query2_form})
 
 def query2_func(name):
     teams = Team.objects.all()
@@ -99,11 +139,21 @@ def query2_func(name):
     return teams
 
 def query3(request):
-    query3 = query3_func("Duke")
-    context = {
-        "query3": query3
-    }
-    return render(request, 'query3_list.html', context=context)
+    # query3 = query3_func("Duke")
+    if request.method == "POST":
+        form = query3_form(request.POST)
+        if form.is_valid():   
+            team_name = form.cleaned_data['team_name']
+            query3 = query3_func(team_name)
+            context = {
+                "query3":  query3
+            }
+            return render(request,'query3_list.html', context=context)
+        else:
+            form = query3_form()
+    
+    return render(request, 'query3_form.html', {'form':query3_form})
+    
 
 def query3_func(team_name):
     players = Player.objects.all()
@@ -111,11 +161,23 @@ def query3_func(team_name):
     return players
 
 def query4(request):
-    query4 = query4_func("NC","DarkBlue")
-    context = {
-        "query4": query4
-    }
-    return render(request, 'query4_list.html', context=context)
+    #query4 = query4_func("NC","DarkBlue")
+    if request.method == "POST":
+        form = query4_form(request.POST)
+        if form.is_valid():
+            
+            team_state = form.cleaned_data['team_state']
+            team_color = form.cleaned_data['team_color']
+            query4 = query4_func(team_state,team_color)
+            context = {
+                "query4":  query4
+            }
+            return render(request,'query4_list.html', context=context)
+        else:
+            form = query4_form()
+    
+    return render(request, 'query4_form.html', {'form':query4_form})
+    
 
 def query4_func(team_state, team_color):
     players = Player.objects.all()
@@ -124,11 +186,22 @@ def query4_func(team_state, team_color):
 
 
 def query5(request):
-    query5 = query5_func(10)
-    context = {
-        "query5": query5
-    }
-    return render(request, 'query5_list.html', context=context)
+    #query5 = query5_func(10)
+    if request.method == "POST":
+        form = query5_form(request.POST)
+        if form.is_valid():
+            print("isvalid")
+            num_wins = form.cleaned_data['num_wins']
+            query5 = query5_func(num_wins)
+            context = {
+                "query5":  query5
+            }
+            return render(request,'query5_list.html', context=context)
+        else:
+            form = query5_form()
+    
+    return render(request, 'query5_form.html', {'form':query5_form})
+    
 
 def query5_func(num_wins):
     players = Player.objects.all()
